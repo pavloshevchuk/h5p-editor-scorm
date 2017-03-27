@@ -1,2 +1,3 @@
-# h5p-editor-scorm
-H5PEditor SCORM
+# H5PEditor SCORM
+
+Allows you to upload and validate a SCORM package.
