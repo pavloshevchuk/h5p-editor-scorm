@@ -76,6 +76,8 @@ H5PEditor.widgets.scormFile = H5PEditor.ScormFile = (function($) {
         self.params.extracted = result.data.extracted;
         self.params.url = result.data.url;
         self.params.pages = result.data.pages;
+        self.params.type = result.data.type;
+        self.params.params = result.data.params;
 
         // Make it possible for other widgets to process the result
         self.trigger('fileUploaded', result.data);
@@ -182,6 +184,16 @@ H5PEditor.widgets.scormFile = H5PEditor.ScormFile = (function($) {
 
   return ScormFile;
 })(H5P.jQuery);
+
+// Add translatable error for fileToLarge error with maximum upload file size on server.
+H5P.jQuery.ajax({
+  method: 'get',
+  dataType: 'text',
+  url: H5PEditor.getAjaxUrl('config'),
+  success: function(response) {
+    H5PEditor.language['H5PEditor.ScormFile']['libraryStrings']['fileToLarge'] = 'The specified file is too large for the server to process. Maximum allowed file size is ' + response + '.';
+  }
+});
 
 // Add strings for l10n.
 H5PEditor.language['H5PEditor.ScormFile'] = {

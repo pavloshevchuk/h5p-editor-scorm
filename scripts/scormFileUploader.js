@@ -222,7 +222,7 @@ H5PEditor.ScormFileUploader = (function($, EventDispatcher) {
         catch (err) {
           H5P.error(err);
           // Add error data to event object.
-          uploadComplete.error = H5PEditor.t('core', 'fileToLarge');
+          uploadComplete.error = H5PEditor.t('H5PEditor.ScormFile', 'fileToLarge');
         }
 
         if (result !== undefined) {
