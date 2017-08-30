@@ -89,6 +89,7 @@ H5PEditor.widgets.scormFile = H5PEditor.ScormFile = (function($) {
         }
       }
       catch (error) {
+        self.$errors.html('');
         self.$errors.append(H5PEditor.createError(error));
       }
 
@@ -191,7 +192,13 @@ H5P.jQuery.ajax({
   dataType: 'text',
   url: H5PEditor.getAjaxUrl('config'),
   success: function(response) {
-    H5PEditor.language['H5PEditor.ScormFile']['libraryStrings']['fileToLarge'] = 'The specified file is too large for the server to process. Maximum allowed file size is ' + response + '.';
+    if (response) {
+      response = JSON.parse(response);
+      if (response.upload_max_size) {
+        H5PEditor.language['H5PEditor.ScormFile']['libraryStrings']['fileToLarge'] = 'The specified file is too large for the server to process. Maximum allowed file size is ' + response.upload_max_size.value + '.';
+        H5PEditor.upload_max_size = response.upload_max_size;
+      }
+    }
   }
 });
 

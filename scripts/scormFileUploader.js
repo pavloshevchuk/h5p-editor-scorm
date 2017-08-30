@@ -113,6 +113,18 @@ H5PEditor.ScormFileUploader = (function($, EventDispatcher) {
      * @private
      */
     var upload = function() {
+      // Validate file size.
+      if ($file[0].files.length && $file[0].files[0].size > H5PEditor.upload_max_size.raw) {
+        var uploadComplete = {
+          error: H5PEditor.t('H5PEditor.ScormFile', 'fileToLarge'),
+          data: null
+        };
+
+        self.trigger('uploadComplete', uploadComplete);
+
+        return;
+      }
+
       // Iframe isn't really bound to a field until the upload starts.
       ready = false;
 
